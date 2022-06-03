@@ -2,6 +2,7 @@ package com.baeldung.crud.controllers;
 
 
 //import com.baeldung.crud.entities.UserFind;
+import com.baeldung.crud.services.FileService;
 import com.baeldung.crud.services.ValidUser;
 import com.baeldung.crud.thowable.InvalidEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +13,21 @@ import org.springframework.web.bind.annotation.*;
 
 import com.baeldung.crud.entities.User;
 import com.baeldung.crud.repositories.UserRepository;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.IOException;
 
 @Controller
 public class UserController {
     
     private final UserRepository userRepository;
+	private final FileService fileService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, FileService fileService) {
         this.userRepository = userRepository;
+	    this.fileService = fileService;
     }
     
     @GetMapping("/index")
@@ -104,5 +108,23 @@ public class UserController {
 //	    model.addAttribute("users", listUser);
 //	    return "index";
 //    }
+	@GetMapping("/uploadFile")
+	public String index() {
+		return "upload";
+	}
+
+	@PostMapping("/uploadFile")
+	public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+
+		User user = fileService.createUserFromFile(
+				fileService.readFromInputStream(file.getInputStream()));
+
+		userRepository.save(user);
+
+		redirectAttributes.addFlashAttribute("message",
+				"You successfully uploaded " + file.getOriginalFilename() + "!");
+
+		return "redirect:/index";
+	}
 
 }
