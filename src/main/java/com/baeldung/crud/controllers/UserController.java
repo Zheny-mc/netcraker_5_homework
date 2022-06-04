@@ -2,6 +2,7 @@ package com.baeldung.crud.controllers;
 
 
 //import com.baeldung.crud.entities.UserFind;
+import com.baeldung.crud.entities.UserFind;
 import com.baeldung.crud.services.FileService;
 import com.baeldung.crud.services.ValidUser;
 import com.baeldung.crud.thowable.InvalidEmail;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -81,33 +83,29 @@ public class UserController {
 
         return "redirect:/index";
     }
+//------------------------------------------------------------------------------------------
+	@GetMapping("/search")
+    public String showInfo() {
+	    return "info-user";
+    }
 
-//	@GetMapping("/info")
-//    public String showInfo() {
-//	    User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//	    model.addAttribute("user", user);
-//
-//	    return "info-user";
-//    }
+    @PostMapping("/search")
+    public String getInfoUser(UserFind userFind,  BindingResult result, Model model) {
 
-//    @PostMapping("/info")
-//    public String getInfoUser(UserFind userFind, BindingResult result, Model model) {
-//	    if (result.hasErrors()) {
-//		    return "index";
-//	    }
-//
-//	    String filter = userFind.getFirstName();
-//    	Iterable<User> listUser;
-//
-//		if (filter != null && !filter.isEmpty()) {
-//			listUser = userRepository.findByFirName(filter);
-//		} else {
-//			listUser = userRepository.findAll();
-//		}
-//
-//	    model.addAttribute("users", listUser);
-//	    return "index";
-//    }
+	    String fName = userFind.getFirstName();
+	    String mName = userFind.getMidleName();
+    	List<User> listUser = null;
+
+		if (fName != null && !fName.isEmpty() && mName != null && !mName.isEmpty()) {
+			listUser = userRepository.findByFirNameAndMidlName(fName, mName);
+		} else {
+			listUser = userRepository.findAll();
+		}
+
+	    model.addAttribute("list_user", listUser);
+	    return "info-user";
+    }
+//------------------------------------------------------------------------
 	@GetMapping("/uploadFile")
 	public String index() {
 		return "upload";

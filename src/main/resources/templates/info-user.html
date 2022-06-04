@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Update User</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container my-5">
+            <h2 class="mb-5">Update User</h2>
+
+            <h3>Find User! Enter FirstName and MiddleName:</h3>
+            <form action="#" th:action="@{/search}" method="POST">
+                <table>
+                    <tr>
+                        <td>FirstName:</td>
+                        <td><input type="text" th:value="${firstName}" class="form-control" name="firstName" placeholder="firstName"></td>
+                    </tr>
+                    <tr>
+                        <td>MiddleName:</td>
+                        <td><input type="text" th:value="${midleName}" class="form-control" name="midleName" placeholder="midlName"></td>
+                    </tr>
+                    <tr>
+                        <td><input name="submit" type="submit" value="submit" /></td>
+                    </tr>
+                </table>
+            </form>
+
+            <div th:switch="${list_user}" class="container my-5">
+                <!-- результат поиск -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 th:case="null">No users yet!</h2>
+                        <div th:case="*">
+                            <h2 class="my-5">Users</h2>
+                            <table class="table table-striped table-responsive-md">
+                                <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Age</th>
+                                    <th>Salary</th>
+                                    <th>Place Work</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user : ${list_user}">
+                                    <td th:text="${user.firName}"></td>
+                                    <td th:text="${user.midlName}"></td>
+                                    <td th:text="${user.lastName}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.age}"></td>
+                                    <td th:text="${user.salary}"></td>
+                                    <td th:text="${user.placeWork}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
