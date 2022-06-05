@@ -1,7 +1,7 @@
 package com.baeldung.crud.controllers;
 
 
-//import com.baeldung.crud.entities.UserFind;
+import com.baeldung.crud.entities.UserBeforeFind;
 import com.baeldung.crud.entities.UserFind;
 import com.baeldung.crud.services.FileService;
 import com.baeldung.crud.services.ValidUser;
@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -94,18 +95,23 @@ public class UserController {
 
 	    String fName = userFind.getFirstName();
 	    String mName = userFind.getMidleName();
-    	List<User> listUser = null;
+    	List<UserBeforeFind> listUser = new ArrayList<>();
+        List<User> sourceUsers = null;
 
 		if (fName != null && !fName.isEmpty() && mName != null && !mName.isEmpty()) {
-			listUser = userRepository.findByFirNameAndMidlName(fName, mName);
+            sourceUsers = userRepository.findByFirNameAndMidlName(fName, mName);
 		} else {
-			listUser = userRepository.findAll();
+            sourceUsers = userRepository.findAll();
 		}
+
+        for (var user: sourceUsers) {
+            listUser.add(new UserBeforeFind(user));
+        }
 
 	    model.addAttribute("list_user", listUser);
 	    return "info-user";
     }
-//------------------------------------------------------------------------
+    //------------------------------------------------------------------------
 	@GetMapping("/uploadFile")
 	public String index() {
 		return "upload";
