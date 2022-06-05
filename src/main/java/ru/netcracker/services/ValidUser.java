@@ -1,7 +1,7 @@
-package com.baeldung.crud.services;
+package ru.netcracker.services;
 
-import com.baeldung.crud.entities.User;
-import com.baeldung.crud.thowable.InvalidEmail;
+import ru.netcracker.entities.User;
+import ru.netcracker.thowable.InvalidEmail;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

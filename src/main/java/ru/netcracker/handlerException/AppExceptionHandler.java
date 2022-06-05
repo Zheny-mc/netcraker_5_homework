@@ -1,6 +1,6 @@
-package com.baeldung.crud.handlerException;
+package ru.netcracker.handlerException;
 
-import com.baeldung.crud.thowable.FileStorageException;
+import ru.netcracker.thowable.FileStorageException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;

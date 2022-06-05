@@ -1,6 +1,6 @@
-package com.baeldung.crud.controllers;
+package ru.netcracker.controllers;
 
-import com.baeldung.crud.services.EmailService;
+import ru.netcracker.services.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +32,6 @@ public class EmailController {
         }
 
         return new ResponseEntity<>("Please check your inbox", HttpStatus.OK);
-    }
-
-    @GetMapping("/simple-order-email/{user-email}")
-    public @ResponseBody ResponseEntity sendEmailAttachment(@PathVariable("user-email") String email) {
-
-        try {
-            emailService.sendEmailWithAttachment(email, "Order Confirmation", "Thanks for your recent order",
-                    "classpath:purchase_order.pdf");
-        } catch (MessagingException | FileNotFoundException mailException) {
-            LOG.error("Error while sending out email..{}", mailException.getStackTrace());
-            return new ResponseEntity<>("Unable to send email", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>("Please check your inbox for order confirmation", HttpStatus.OK);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.baeldung.crud.entities;
+package ru.netcracker.entities;
 
 import lombok.Data;
 

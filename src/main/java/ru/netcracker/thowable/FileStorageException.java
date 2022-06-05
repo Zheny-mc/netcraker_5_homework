@@ -1,4 +1,4 @@
-package com.baeldung.crud.thowable;
+package ru.netcracker.thowable;
 
 public class FileStorageException extends RuntimeException {
 

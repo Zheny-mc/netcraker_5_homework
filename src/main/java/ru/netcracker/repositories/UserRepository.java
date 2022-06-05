@@ -1,6 +1,6 @@
-package com.baeldung.crud.repositories;
+package ru.netcracker.repositories;
 
-import com.baeldung.crud.entities.User;
+import ru.netcracker.entities.User;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

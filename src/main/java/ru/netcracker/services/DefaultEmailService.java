@@ -1,4 +1,4 @@
-package com.baeldung.crud.services;
+package ru.netcracker.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -28,17 +28,4 @@ public class DefaultEmailService implements EmailService {
         emailSender.send(simpleMailMessage);
     }
 
-    @Override
-    public void sendEmailWithAttachment(String toAddress, String subject, String message, String attachment)
-            throws FileNotFoundException, MessagingException {
-
-        MimeMessage mimeMessage = emailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
-        messageHelper.setTo(toAddress);
-        messageHelper.setSubject(subject);
-        messageHelper.setText(message);
-        FileSystemResource file = new FileSystemResource(ResourceUtils.getFile(attachment));
-        messageHelper.addAttachment("Purchase Order", file);
-        emailSender.send(mimeMessage);
-    }
 }
