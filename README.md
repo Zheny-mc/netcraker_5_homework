@@ -1,12 +1,12 @@
 # netcraker_5_homework
 
 # Технологии и фреймворки, используемые в работе:
-## Spring Boot
-## Thymeleaf
-## Maven
-## Java IO
-## Java Mail/Spring mail API
-## Postman
+* Spring Boot
+* Thymeleaf
+* Maven
+* Java IO
+* Java Mail/Spring mail API
+* Postman
 
 
 # В рамках данной работы необходимо написать SpringBoot+Thymeleaf приложение, реализующее следующий функционал:
